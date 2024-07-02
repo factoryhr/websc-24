@@ -9,7 +9,7 @@ modules:
   # enable helpers as array
   enabled:
     - REST:
-        url: 'http://localhost:8000'
+        url: 'http://localhost'
         depends: PhpBrowser
         part: Json
         timeout: 200

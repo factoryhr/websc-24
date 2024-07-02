@@ -7,8 +7,9 @@ actor: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: 'http://localhost:8000'
+            url: 'http://php-apache:80'
             browser: chrome
+            host: selenium
             port: 4444
 #        - PhpBrowser:
 #            url: https://localhost:8000
