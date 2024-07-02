@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+    <h1>{{ blog.Title }}</h1>
+    <p><small>Published: {{ blog.CreatedAt|date('d.m.Y H:i') }}</small></p>
+
+    <div class="blog-item">
+        <p>{{ blog.Content }}</p>
+    </div>
+{% endblock %}

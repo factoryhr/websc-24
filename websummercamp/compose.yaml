@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+###> doctrine/doctrine-bundle ###
+  db:
+    image: mariadb:10.11
+    working_dir: /application
+    command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --innodb-file-per-table=1 ]
+    volumes:
+      - pimcore-database:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=ROOT
+      - MYSQL_DATABASE=websummercamp_codeception
+      - MYSQL_USER=symfony
+      - MYSQL_PASSWORD=symfony
+    ports:
+      - "3371:3306"
+
+  selenium-chrome:
+    image: selenium/standalone-chrome:125.0-chromedriver-125.0-grid-4.21.0-20240522
+    shm_size: 2g
+    network_mode: "host"
+    container_name: selenium-chrome
+    ports:
+      - "4444:4444"
+    environment:
+      - SE_NODE_MAX_SESSIONS=1
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+    volumes:
+      - /dev/shm:/dev/shm
+#  chrome:
+#    image: selenium/standalone-chrome:125.0-chromedriver-125.0-grid-4.21.0-20240522
+#    shm_size: 2gb
+#    depends_on:
+#      - selenium-hub
+#    environment:
+#      - SE_EVENT_BUS_HOST=selenium-hub
+#      - SE_EVENT_BUS_PUBLISH_PORT=4442
+#      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+#  selenium-hub:
+#    image: selenium/hub:4.21.0-20240522
+#    container_name: selenium-hub
+#    ports:
+#      - "4442:4442"
+#      - "4443:4443"
+#      - "4444:4444"
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+###> doctrine/doctrine-bundle ###
+  pimcore-database:
+###< doctrine/doctrine-bundle ###

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blogs{% endblock %}
+
+{% block body %}
+    <h1>Blogs</h1>
+
+    <div class="blog-list">
+        {% for blog in blogs %}
+            <div class="blog-item">
+                <a href="{{ path('app_blog', { 'blog': blog.Id }) }}"><h2>{{ blog.Title }}</h2></a>
+                <p><small>Published: {{ blog.CreatedAt|date('d.m.Y H:i') }}</small></p>
+                <a href="{{ path('app_delete_blog', { 'blog': blog.Id }) }}"><small>Delete "{{ blog.Title }}"</small></a>
+            </div>
+        {% else %}
+            <p>No available blogs.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

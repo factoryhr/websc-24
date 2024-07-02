@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  php-apache:
+    image: php:8.3-apache
+    container_name: php-apache
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./websummercamp:/var/www/html
+      - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    environment:
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
+      - USER_UID=1000
+    ports:
+      - "8080:80"
+    networks:
+      - php-network
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: WebSummerCamp
+      MYSQL_DATABASE: project
+      MYSQL_USER: wsc
+      MYSQL_PASSWORD: WSC2024.!
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    ports:
+      - "3371:3306"
+    networks:
+      - php-network
+
+  selenium:
+    image: selenium/standalone-chrome:latest
+    container_name: selenium
+    ports:
+      - "4444:4444"
+    networks:
+      - php-network
+
+networks:
+  php-network:
+    driver: bridge

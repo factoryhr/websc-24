@@ -1,0 +1,18 @@
+# Codeception Test Suite Configuration
+#
+# Suite for unit or integration tests.
+
+actor: UnitTester
+modules:
+    enabled:
+        - Asserts
+        - Db:
+              dsn: 'mysql:host=localhost:3371;dbname=websummercamp_codeception'
+              user: 'root'
+              password: 'ROOT'
+        - Symfony:
+              app_path: 'src'
+              #            environment: 'test'
+              kernel_class: 'App\Kernel'
+
+step_decorators: ~

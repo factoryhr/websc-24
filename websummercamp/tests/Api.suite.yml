@@ -1,0 +1,17 @@
+# Codeception Test Suite Configuration
+#
+# Suite for functional tests
+# Emulate web requests and make application process them
+
+actor: ApiTester
+suite_namespace: Tests\Api
+modules:
+  # enable helpers as array
+  enabled:
+    - REST:
+        url: 'http://localhost:8000'
+        depends: PhpBrowser
+        part: Json
+        timeout: 200
+    - Asserts
+    - Cli
